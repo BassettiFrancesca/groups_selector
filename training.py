@@ -35,7 +35,20 @@ def train(train_set):
             loss.backward()
             optimizer.step()
 
+    epoch_loss = 0.0
+
+    for j, (inputs, labels) in enumerate(train_loader):
+        inputs = inputs.to(device)
+        labels = labels.to(device)
+
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+
+        epoch_loss += loss.item()
+
     print('Finished Training')
 
     PATH = './mnist_net.pth'
     torch.save(net.state_dict(), PATH)
+
+    return epoch_loss / j
