@@ -47,6 +47,7 @@ def train(train_set):
         epoch_loss += loss.item()
 
     print('Finished Training')
+    print(f'Loss: {epoch_loss / j}\n')
 
     PATH = './mnist_net.pth'
     torch.save(net.state_dict(), PATH)

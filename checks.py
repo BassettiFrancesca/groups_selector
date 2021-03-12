@@ -1,5 +1,5 @@
 def check_all_true(bool_d):
-    for i in range(len(bool_d)):
+    for i in bool_d:
         if not bool_d[i]:
             return False
     return True
@@ -26,3 +26,15 @@ def check_how_many(bool_d):
         if not bool_d[i]:
             false += 1
     return false
+
+
+def find_key(d, v):
+    for i in d:
+        if d[i] == v:
+            return i
+
+
+def str_to_pair(s, pairs):
+    for p in pairs:
+        if str(p) == s:
+            return p

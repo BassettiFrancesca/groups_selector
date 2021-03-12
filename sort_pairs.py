@@ -1,3 +1,4 @@
+import checks
 import divide_dataset
 import training
 import testing
@@ -13,27 +14,36 @@ def sort_pairs():
 
     accuracy_pairs_test = {}
     loss_pairs_train = {}
+    pairs_accuracy = []
+    pairs_loss = []
 
     for pair in pairs:
         (train_set, test_set) = divide_dataset.divide_dataset(pair)
         loss = training.train(train_set)
         accuracy = testing.test(test_set)
-        accuracy_pairs_test[accuracy] = pair
-        loss_pairs_train[loss] = pair
+        pair = str(pair)
+        accuracy_pairs_test[pair] = accuracy
+        pairs_accuracy.append(accuracy)
+        loss_pairs_train[pair] = loss
+        pairs_loss.append(loss)
 
-    pairs_sorted_train = []
+    pairs_accuracy.sort()
     pairs_sorted_test = []
 
-    for i in sorted(accuracy_pairs_test):
-        pairs_sorted_test.append(accuracy_pairs_test[i])
+    for a in pairs_accuracy:
+        key = checks.find_key(accuracy_pairs_test, a)
+        pairs_sorted_test.append(checks.str_to_pair(key, pairs))
 
-    for i in sorted(loss_pairs_train):
-        pairs_sorted_train.append(loss_pairs_train[i])
+    pairs_loss.sort()
+    pairs_loss.reverse()
+    pairs_sorted_train = []
 
-    pairs_sorted_train.reverse()
+    for l in pairs_loss:
+        key = checks.find_key(loss_pairs_train, l)
+        pairs_sorted_train.append(checks.str_to_pair(key, pairs))
 
-    print(pairs_sorted_test)
-    print(pairs_sorted_train)
+    print(f'Pairs_sorted_train: {pairs_sorted_train}\n')
+    print(f'Pairs_sorted_test: {pairs_sorted_test}\n')
 
     return pairs_sorted_train, pairs_sorted_test
 

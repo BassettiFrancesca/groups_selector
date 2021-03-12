@@ -33,7 +33,7 @@ def test(test_set):
             for i in range(len(images)):
                 label = labels[i]
                 pred = predicted[i]
-                if (label == pred):
+                if label == pred:
                     n_class_correct[label] += 1
                 n_class_samples[label] += 1
 
